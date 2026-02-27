@@ -18,7 +18,11 @@ DEBUG = os.environ.get('DJANGO_DEBUG', 'True') == 'True'
 # Allow Azure and custom domain
 allowed_hosts_str = os.environ.get('DJANGO_ALLOWED_HOSTS', 'localhost,127.0.0.1')
 ALLOWED_HOSTS = [host.strip() for host in allowed_hosts_str.split(',')]
-ALLOWED_HOSTS.extend(['cloudcertifiedsupport.com', '*.azurewebsites.net', 'www.cloudcertifiedsupport.com'])
+ALLOWED_HOSTS.extend([
+    'cloudcertifiedsupport.com',
+    'www.cloudcertifiedsupport.com',
+    '.azurewebsites.net',  # Allows all Azure subdomains
+])
 
 
 # Application definition
