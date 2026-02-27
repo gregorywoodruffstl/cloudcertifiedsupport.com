@@ -13,18 +13,16 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 SECRET_KEY = os.environ.get('DJANGO_SECRET_KEY', 'django-insecure-development-key-change-in-production')
 
 # SECURITY WARNING: don't run with debug turned on in production!
-# Temporarily enable DEBUG to diagnose 500 error
-DEBUG = True  # Force DEBUG on to see detailed errors
-ALLOWED_HOSTS = ['*']  # Temporarily allow all hosts for debugging
+DEBUG = os.environ.get('DJANGO_DEBUG', 'False') == 'True'
 
-# Original ALLOWED_HOSTS logic - commented out for debugging
-# allowed_hosts_str = os.environ.get('DJANGO_ALLOWED_HOSTS', 'localhost,127.0.0.1')
-# ALLOWED_HOSTS = [host.strip() for host in allowed_hosts_str.split(',')]
-# ALLOWED_HOSTS.extend([
-#     'cloudcertifiedsupport.com',
-#     'www.cloudcertifiedsupport.com',
-#     '.azurewebsites.net',  # Allows all Azure subdomains
-# ])
+# Production ALLOWED_HOSTS
+allowed_hosts_str = os.environ.get('DJANGO_ALLOWED_HOSTS', 'localhost,127.0.0.1')
+ALLOWED_HOSTS = [host.strip() for host in allowed_hosts_str.split(',')]
+ALLOWED_HOSTS.extend([
+    'cloudcertifiedsupport.com',
+    'www.cloudcertifiedsupport.com',
+    '.azurewebsites.net',  # Allows all Azure subdomains
+])
 
 
 # Application definition
