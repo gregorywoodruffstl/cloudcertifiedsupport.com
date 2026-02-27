@@ -1,0 +1,218 @@
+{% extends 'website/base.html' %}
+
+{% block title %}Our Services - Cloud Certified Support Inc{% endblock %}
+
+{% block extra_css %}
+<style>
+    .page-header {
+        background: linear-gradient(135deg, #0078D4 0%, #0053A0 100%);
+        color: white;
+        padding: 4rem 0 3rem;
+        text-align: center;
+        margin-bottom: 3rem;
+    }
+    
+    .page-header h1 {
+        font-size: 2.5rem;
+        margin-bottom: 1rem;
+    }
+    
+    .page-header p {
+        font-size: 1.2rem;
+        max-width: 800px;
+        margin: 0 auto;
+    }
+    
+    .category-section {
+        margin-bottom: 4rem;
+    }
+    
+    .category-title {
+        font-size: 2rem;
+        color: #0078D4;
+        margin-bottom: 2rem;
+        padding-bottom: 0.5rem;
+        border-bottom: 3px solid #0078D4;
+    }
+    
+    .services-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+        gap: 2rem;
+        margin-bottom: 3rem;
+    }
+    
+    .service-card {
+        background: white;
+        padding: 2rem;
+        border-radius: 10px;
+        box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+        transition: transform 0.3s, box-shadow 0.3s;
+        display: flex;
+        flex-direction: column;
+    }
+    
+    .service-card:hover {
+        transform: translateY(-5px);
+        box-shadow: 0 5px 20px rgba(0,0,0,0.15);
+    }
+    
+    .service-icon {
+        font-size: 3rem;
+        color: #0078D4;
+        margin-bottom: 1rem;
+    }
+    
+    .service-card h3 {
+        color: #1a1a1a;
+        margin-bottom: 1rem;
+        font-size: 1.5rem;
+    }
+    
+    .service-card p {
+        color: #666;
+        margin-bottom: 1.5rem;
+        flex-grow: 1;
+        line-height: 1.6;
+    }
+    
+    .service-meta {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        margin-top: auto;
+        padding-top: 1rem;
+        border-top: 1px solid #e0e0e0;
+    }
+    
+    .service-pricing {
+        color: #0078D4;
+        font-weight: bold;
+        font-size: 0.9rem;
+    }
+    
+    .featured-badge {
+        background: #FFD700;
+        color: #000;
+        padding: 0.25rem 0.75rem;
+        border-radius: 15px;
+        font-size: 0.85rem;
+        font-weight: bold;
+    }
+    
+    .cta-section {
+        background: linear-gradient(135deg, #0078D4 0%, #0053A0 100%);
+        color: white;
+        padding: 3rem 2rem;
+        border-radius: 10px;
+        text-align: center;
+        margin-top: 4rem;
+    }
+    
+    .cta-section h2 {
+        font-size: 2rem;
+        margin-bottom: 1rem;
+    }
+    
+    .cta-section p {
+        font-size: 1.1rem;
+        margin-bottom: 2rem;
+        max-width: 700px;
+        margin-left: auto;
+        margin-right: auto;
+    }
+    
+    .cta-section .btn {
+        background: white;
+        color: #0078D4;
+        font-weight: bold;
+        font-size: 1.1rem;
+        padding: 1rem 2rem;
+    }
+    
+    .cta-section .btn:hover {
+        background: #f0f0f0;
+    }
+    
+    .no-services {
+        text-align: center;
+        padding: 3rem 0;
+        color: #666;
+    }
+    
+    @media (max-width: 768px) {
+        .page-header h1 {
+            font-size: 2rem;
+        }
+        
+        .services-grid {
+            grid-template-columns: 1fr;
+        }
+    }
+</style>
+{% endblock %}
+
+{% block content %}
+<!-- Page Header -->
+<section class="page-header">
+    <div class="container">
+        <h1>Our Services</h1>
+        <p>Comprehensive Microsoft Azure and cloud solutions designed to help your business succeed in the digital age</p>
+    </div>
+</section>
+
+<!-- Services by Category -->
+<section class="container">
+    {% if services_by_category %}
+        {% for category_name, category_services in services_by_category.items %}
+        <div class="category-section">
+            <h2 class="category-title">{{ category_name }}</h2>
+            
+            <div class="services-grid">
+                {% for service in category_services %}
+                <div class="card service-card">
+                    {% if service.icon_class %}
+                    <div class="service-icon">
+                        <i class="{{ service.icon_class }}"></i>
+                    </div>
+                    {% endif %}
+                    
+                    <h3>{{ service.title }}</h3>
+                    <p>{{ service.short_description }}</p>
+                    
+                    <div class="service-meta">
+                        <div>
+                            {% if service.pricing_info %}
+                            <div class="service-pricing">{{ service.pricing_info }}</div>
+                            {% endif %}
+                        </div>
+                        <div>
+                            {% if service.is_featured %}
+                            <span class="featured-badge">Featured</span>
+                            {% endif %}
+                        </div>
+                    </div>
+                    
+                    <a href="{% url 'website:service_detail' service.slug %}" class="btn" style="margin-top: 1rem;">Learn More</a>
+                </div>
+                {% endfor %}
+            </div>
+        </div>
+        {% endfor %}
+    {% else %}
+        <div class="no-services">
+            <h2>Services Coming Soon</h2>
+            <p>We're currently updating our services portfolio. Please check back soon or <a href="{% url 'website:contact' %}">contact us</a> directly.</p>
+        </div>
+    {% endif %}
+</section>
+
+<!-- Call to Action -->
+<section class="container">
+    <div class="cta-section">
+        <h2>Ready to Get Started?</h2>
+        <p>Let's discuss how our services can help transform your business with Microsoft Azure and cloud technologies.</p>
+        <a href="{% url 'website:contact' %}" class="btn">Schedule a Free Consultation</a>
+    </div>
+</section>
+{% endblock %}

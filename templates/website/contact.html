@@ -1,0 +1,168 @@
+{% extends 'website/base.html' %}
+
+{% block title %}Contact Us - Cloud Certified Support Inc{% endblock %}
+
+{% block extra_css %}
+<style>
+    .contact-section {
+        padding: 4rem 0;
+    }
+    
+    .contact-grid {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 4rem;
+        margin-top: 2rem;
+    }
+    
+    @media (max-width: 768px) {
+        .contact-grid {
+            grid-template-columns: 1fr;
+        }
+    }
+    
+    .contact-form {
+        background: white;
+        padding: 2rem;
+        border-radius: 10px;
+        box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+    }
+    
+    .form-group {
+        margin-bottom: 1.5rem;
+    }
+    
+    .form-group label {
+        display: block;
+        margin-bottom: 0.5rem;
+        font-weight: 600;
+        color: #333;
+    }
+    
+    .form-group input,
+    .form-group textarea {
+        width: 100%;
+        padding: 0.75rem;
+        border: 1px solid #ddd;
+        border-radius: 5px;
+        font-size: 1rem;
+        font-family: inherit;
+    }
+    
+    .form-group textarea {
+        min-height: 150px;
+        resize: vertical;
+    }
+    
+    .contact-info {
+        background: white;
+        padding: 2rem;
+        border-radius: 10px;
+        box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+    }
+    
+    .contact-info h3 {
+        color: #0078D4;
+        margin-bottom: 1rem;
+    }
+    
+    .contact-item {
+        margin-bottom: 1.5rem;
+        padding-left: 1.5rem;
+        position: relative;
+    }
+    
+    .contact-item::before {
+        content: "→";
+        position: absolute;
+        left: 0;
+        color: #0078D4;
+        font-weight: bold;
+    }
+</style>
+{% endblock %}
+
+{% block content %}
+<section class="contact-section">
+    <div class="container">
+        <h1 class="section-title">Contact Us</h1>
+        <p class="section-subtitle">Get in touch with our team to discuss your Azure and cloud needs</p>
+        
+        <div class="contact-grid">
+            <div class="contact-form">
+                <h2>Send Us a Message</h2>
+                <form method="post">
+                    {% csrf_token %}
+                    
+                    <div class="form-group">
+                        <label for="name">Name *</label>
+                        <input type="text" id="name" name="name" required>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="email">Email *</label>
+                        <input type="email" id="email" name="email" required>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="company">Company</label>
+                        <input type="text" id="company" name="company">
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="phone">Phone</label>
+                        <input type="tel" id="phone" name="phone">
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="subject">Subject *</label>
+                        <input type="text" id="subject" name="subject" required>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="message">Message *</label>
+                        <textarea id="message" name="message" required></textarea>
+                    </div>
+                    
+                    <button type="submit" class="btn">Send Message</button>
+                </form>
+            </div>
+            
+            <div class="contact-info">
+                <h3>Contact Information</h3>
+                
+                <div class="contact-item">
+                    <strong>Email</strong><br>
+                    gregory.woodruff@cloudcertifiedsupport.com
+                </div>
+                
+                <div class="contact-item">
+                    <strong>Business Since</strong><br>
+                    Operating since 1996 - 30 years of experience
+                </div>
+                
+                <div class="contact-item">
+                    <strong>Missouri Corporation</strong><br>
+                    Cloud Certified Support Inc<br>
+                    State-registered Missouri corporation
+                </div>
+                
+                <h3 style="margin-top: 2rem;">Business Hours</h3>
+                <div class="contact-item">
+                    Monday - Friday: 9:00 AM - 5:00 PM CST<br>
+                    Weekend support available for urgent issues
+                </div>
+                
+                <h3 style="margin-top: 2rem;">Services</h3>
+                <div class="contact-item">
+                    ✓ Azure Consulting<br>
+                    ✓ Cloud Migration<br>
+                    ✓ Microsoft 365 Integration<br>
+                    ✓ Technical Support<br>
+                    ✓ Custom Development
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+{% endblock %}

@@ -1,0 +1,244 @@
+{% extends 'website/base.html' %}
+
+{% block title %}Cloud Certified Support Inc - Microsoft Azure Consulting & Cloud Solutions{% endblock %}
+
+{% block extra_css %}
+<style>
+    .hero {
+        background: linear-gradient(135deg, #0078D4 0%, #0053A0 100%);
+        color: white;
+        padding: 5rem 0;
+        text-align: center;
+    }
+    
+    .hero h1 {
+        font-size: 3rem;
+        margin-bottom: 1rem;
+    }
+    
+    .hero p {
+        font-size: 1.3rem;
+        margin-bottom: 2rem;
+        max-width: 800px;
+        margin-left: auto;
+        margin-right: auto;
+    }
+    
+    .hero-buttons {
+        display: flex;
+        gap: 1rem;
+        justify-content: center;
+        flex-wrap: wrap;
+    }
+    
+    .hero .btn {
+        background: white;
+        color: #0078D4;
+        font-weight: bold;
+    }
+    
+    .hero .btn:hover {
+        background: #f0f0f0;
+    }
+    
+    .section {
+        padding: 4rem 0;
+    }
+    
+    .section-alt {
+        background: white;
+    }
+    
+    .services-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+        gap: 2rem;
+        margin-top: 2rem;
+    }
+    
+    .service-card {
+        text-align: center;
+    }
+    
+    .service-card h3 {
+        margin: 1rem 0;
+        color: #0078D4;
+    }
+    
+    .portfolio-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+        gap: 2rem;
+        margin-top: 2rem;
+    }
+    
+    .portfolio-card h3 {
+        margin-top: 1rem;
+        color: #1a1a1a;
+    }
+    
+    .portfolio-card p {
+        margin-top: 0.5rem;
+        color: #666;
+    }
+    
+    .tech-badge {
+        display: inline-block;
+        background: #e7f3ff;
+        color: #0078D4;
+        padding: 0.25rem 0.75rem;
+        border-radius: 15px;
+        font-size: 0.85rem;
+        margin: 0.25rem;
+    }
+    
+    .stats {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+        gap: 2rem;
+        margin-top: 2rem;
+        text-align: center;
+    }
+    
+    .stat h2 {
+        font-size: 3rem;
+        color: #0078D4;
+        margin-bottom: 0.5rem;
+    }
+    
+    .stat p {
+        font-size: 1.1rem;
+        color: #666;
+    }
+</style>
+{% endblock %}
+
+{% block content %}
+<!-- Hero Section -->
+<section class="hero">
+    <div class="container">
+        <h1>Expert Microsoft Azure Consulting</h1>
+        <p>Cloud Certified Support Inc delivers enterprise-grade cloud solutions, migrations, and technical support for businesses leveraging Microsoft Azure and Microsoft 365.</p>
+        <div class="hero-buttons">
+            <a href="{% url 'website:services' %}" class="btn">Our Services</a>
+            <a href="{% url 'website:contact' %}" class="btn">Get Started</a>
+        </div>
+    </div>
+</section>
+
+<!-- Featured Services -->
+<section class="section">
+    <div class="container">
+        <h2 class="section-title">Our Services</h2>
+        <p class="section-subtitle">Comprehensive Microsoft Azure and cloud solutions tailored to your business needs</p>
+        
+        <div class="services-grid">
+            {% for service in featured_services %}
+            <div class="card service-card">
+                <h3>{{ service.title }}</h3>
+                <p>{{ service.short_description }}</p>
+                <a href="{% url 'website:service_detail' service.slug %}" class="btn">Learn More</a>
+            </div>
+            {% empty %}
+            <div class="card service-card">
+                <h3>Azure Consulting</h3>
+                <p>Expert guidance for Azure architecture, migrations, and optimization.</p>
+            </div>
+            <div class="card service-card">
+                <h3>Cloud Migration</h3>
+                <p>Seamless migration of your applications and data to Microsoft Azure.</p>
+            </div>
+            <div class="card service-card">
+                <h3>Technical Support</h3>
+                <p>24/7 support for your Azure infrastructure and Microsoft 365 environment.</p>
+            </div>
+            {% endfor %}
+        </div>
+        
+        <div style="text-align: center; margin-top: 2rem;">
+            <a href="{% url 'website:services' %}" class="btn">View All Services</a>
+        </div>
+    </div>
+</section>
+
+<!-- Portfolio Showcase -->
+<section class="section section-alt">
+    <div class="container">
+        <h2 class="section-title">Featured Projects</h2>
+        <p class="section-subtitle">Delivering innovative solutions across healthcare, education, and enterprise sectors</p>
+        
+        <div class="portfolio-grid">
+            {% for project in featured_portfolio %}
+            <div class="card portfolio-card">
+                <h3>{{ project.title }}</h3>
+                <p>{{ project.short_description }}</p>
+                <div>
+                    {% for tech in project.tech_list %}
+                    <span class="tech-badge">{{ tech }}</span>
+                    {% endfor %}
+                </div>
+                <a href="{% url 'website:portfolio_detail' project.slug %}" class="btn" style="margin-top: 1rem;">View Case Study</a>
+            </div>
+            {% empty %}
+            <div class="card portfolio-card">
+                <h3>BrentwoodBlvd.com</h3>
+                <p>Healthcare analytics platform serving 100+ hospital administrators with Azure Functions and PostgreSQL.</p>
+                <div>
+                    <span class="tech-badge">Azure Functions</span>
+                    <span class="tech-badge">PostgreSQL</span>
+                    <span class="tech-badge">Python</span>
+                </div>
+            </div>
+            <div class="card portfolio-card">
+                <h3>YouBetYourAzure.com</h3>
+                <p>Educational platform providing free Azure certification training to 1,000+ students.</p>
+                <div>
+                    <span class="tech-badge">Azure Static Web Apps</span>
+                    <span class="tech-badge">Django</span>
+                    <span class="tech-badge">Microsoft Learn</span>
+                </div>
+            </div>
+            {% endfor %}
+        </div>
+        
+        <div style="text-align: center; margin-top: 2rem;">
+            <a href="{% url 'website:portfolio' %}" class="btn">View Full Portfolio</a>
+        </div>
+    </div>
+</section>
+
+<!-- Stats Section -->
+<section class="section">
+    <div class="container">
+        <h2 class="section-title">By the Numbers</h2>
+        
+        <div class="stats">
+            <div class="stat">
+                <h2>5,000+</h2>
+                <p>Users Served</p>
+            </div>
+            <div class="stat">
+                <h2>6</h2>
+                <p>Production Applications</p>
+            </div>
+            <div class="stat">
+                <h2>112</h2>
+                <p>Domains Managed</p>
+            </div>
+            <div class="stat">
+                <h2>30</h2>
+                <p>Years Experience</p>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Call to Action -->
+<section class="section section-alt">
+    <div class="container" style="text-align: center;">
+        <h2 class="section-title">Ready to Transform Your Cloud Infrastructure?</h2>
+        <p class="section-subtitle">Let's discuss how Cloud Certified Support can help your business leverage Microsoft Azure.</p>
+        <a href="{% url 'website:contact' %}" class="btn" style="font-size: 1.2rem; padding: 1rem 2rem;">Get in Touch</a>
+    </div>
+</section>
+{% endblock %}

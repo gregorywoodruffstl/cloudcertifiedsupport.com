@@ -1,0 +1,349 @@
+{% extends 'website/base.html' %}
+
+{% block title %}{{ service.title }} - Cloud Certified Support Inc{% endblock %}
+
+{% block meta_description %}{{ service.short_description }}{% endblock %}
+
+{% block extra_css %}
+<style>
+    .service-header {
+        background: linear-gradient(135deg, #0078D4 0%, #0053A0 100%);
+        color: white;
+        padding: 4rem 0 3rem;
+    }
+    
+    .service-header h1 {
+        font-size: 2.5rem;
+        margin-bottom: 1rem;
+    }
+    
+    .service-header p {
+        font-size: 1.2rem;
+        max-width: 800px;
+    }
+    
+    .service-meta-bar {
+        background: white;
+        padding: 1.5rem 0;
+        box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+        margin-bottom: 3rem;
+    }
+    
+    .service-meta-bar .container {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        flex-wrap: wrap;
+        gap: 1rem;
+    }
+    
+    .meta-item {
+        display: flex;
+        align-items: center;
+        gap: 0.5rem;
+    }
+    
+    .meta-item i {
+        color: #0078D4;
+        font-size: 1.2rem;
+    }
+    
+    .meta-label {
+        font-weight: bold;
+        color: #333;
+    }
+    
+    .meta-value {
+        color: #666;
+    }
+    
+    .featured-badge {
+        background: #FFD700;
+        color: #000;
+        padding: 0.5rem 1rem;
+        border-radius: 20px;
+        font-weight: bold;
+    }
+    
+    .service-content {
+        display: grid;
+        grid-template-columns: 2fr 1fr;
+        gap: 3rem;
+        margin-bottom: 3rem;
+    }
+    
+    .main-content {
+        background: white;
+        padding: 2.5rem;
+        border-radius: 10px;
+        box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+    }
+    
+    .main-content h2 {
+        color: #0078D4;
+        margin-top: 2rem;
+        margin-bottom: 1rem;
+        font-size: 1.8rem;
+    }
+    
+    .main-content h3 {
+        color: #1a1a1a;
+        margin-top: 1.5rem;
+        margin-bottom: 0.75rem;
+        font-size: 1.3rem;
+    }
+    
+    .main-content p {
+        color: #333;
+        line-height: 1.8;
+        margin-bottom: 1rem;
+    }
+    
+    .main-content ul {
+        margin: 1rem 0 1rem 2rem;
+        color: #333;
+    }
+    
+    .main-content li {
+        margin-bottom: 0.5rem;
+        line-height: 1.6;
+    }
+    
+    .sidebar {
+        position: sticky;
+        top: 100px;
+        align-self: start;
+    }
+    
+    .sidebar-card {
+        background: white;
+        padding: 2rem;
+        border-radius: 10px;
+        box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+        margin-bottom: 2rem;
+    }
+    
+    .sidebar-card h3 {
+        color: #0078D4;
+        margin-bottom: 1.5rem;
+        font-size: 1.3rem;
+    }
+    
+    .pricing-box {
+        background: linear-gradient(135deg, #0078D4 0%, #0053A0 100%);
+        color: white;
+        padding: 2rem;
+        border-radius: 10px;
+        text-align: center;
+        margin-bottom: 1.5rem;
+    }
+    
+    .pricing-box h4 {
+        font-size: 2rem;
+        margin-bottom: 0.5rem;
+    }
+    
+    .pricing-box p {
+        font-size: 0.95rem;
+        opacity: 0.9;
+    }
+    
+    .cta-buttons {
+        display: flex;
+        flex-direction: column;
+        gap: 1rem;
+    }
+    
+    .sidebar-list {
+        list-style: none;
+        padding: 0;
+        margin: 0;
+    }
+    
+    .sidebar-list li {
+        padding: 0.75rem 0;
+        border-bottom: 1px solid #e0e0e0;
+        display: flex;
+        align-items: center;
+        gap: 0.5rem;
+    }
+    
+    .sidebar-list li:last-child {
+        border-bottom: none;
+    }
+    
+    .sidebar-list i {
+        color: #0078D4;
+    }
+    
+    .related-services {
+        margin-top: 4rem;
+    }
+    
+    .related-services h2 {
+        text-align: center;
+        color: #1a1a1a;
+        margin-bottom: 2rem;
+    }
+    
+    .related-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+        gap: 2rem;
+    }
+    
+    .related-card {
+        background: white;
+        padding: 1.5rem;
+        border-radius: 10px;
+        box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+        transition: transform 0.3s;
+        text-align: center;
+    }
+    
+    .related-card:hover {
+        transform: translateY(-5px);
+    }
+    
+    .related-card h3 {
+        color: #0078D4;
+        margin: 1rem 0 0.5rem;
+        font-size: 1.2rem;
+    }
+    
+    .related-card p {
+        color: #666;
+        font-size: 0.95rem;
+        margin-bottom: 1rem;
+    }
+    
+    @media (max-width: 968px) {
+        .service-content {
+            grid-template-columns: 1fr;
+        }
+        
+        .sidebar {
+            position: static;
+        }
+        
+        .service-meta-bar .container {
+            flex-direction: column;
+            align-items: flex-start;
+        }
+    }
+</style>
+{% endblock %}
+
+{% block content %}
+<!-- Service Header -->
+<section class="service-header">
+    <div class="container">
+        <h1>{{ service.title }}</h1>
+        <p>{{ service.short_description }}</p>
+    </div>
+</section>
+
+<!-- Service Meta Bar -->
+<div class="service-meta-bar">
+    <div class="container">
+        <div class="meta-item">
+            <i class="fas fa-tag"></i>
+            <span class="meta-label">Category:</span>
+            <span class="meta-value">{{ service.get_category_display }}</span>
+        </div>
+        
+        {% if service.pricing_info %}
+        <div class="meta-item">
+            <i class="fas fa-dollar-sign"></i>
+            <span class="meta-label">Pricing:</span>
+            <span class="meta-value">{{ service.pricing_info }}</span>
+        </div>
+        {% endif %}
+        
+        {% if service.is_featured %}
+        <div class="featured-badge">
+            ⭐ Featured Service
+        </div>
+        {% endif %}
+    </div>
+</div>
+
+<!-- Service Content -->
+<div class="container">
+    <div class="service-content">
+        <!-- Main Content -->
+        <div class="main-content">
+            {{ service.full_description|linebreaks }}
+        </div>
+        
+        <!-- Sidebar -->
+        <aside class="sidebar">
+            <!-- Pricing Card -->
+            <div class="sidebar-card">
+                {% if service.pricing_info %}
+                <div class="pricing-box">
+                    <h4>{{ service.pricing_info }}</h4>
+                    <p>Pricing varies by project scope</p>
+                </div>
+                {% endif %}
+                
+                <div class="cta-buttons">
+                    <a href="{% url 'website:contact' %}" class="btn">Request Quote</a>
+                    <a href="{% url 'website:contact' %}" class="btn btn-secondary">Schedule Consultation</a>
+                </div>
+            </div>
+            
+            <!-- Quick Info Card -->
+            <div class="sidebar-card">
+                <h3>Service Highlights</h3>
+                <ul class="sidebar-list">
+                    <li><i class="fas fa-check"></i> Expert Azure Solutions</li>
+                    <li><i class="fas fa-check"></i> 30 Years Experience</li>
+                    <li><i class="fas fa-check"></i> Production-Ready Results</li>
+                    <li><i class="fas fa-check"></i> Ongoing Support</li>
+                    <li><i class="fas fa-check"></i> Missouri Corporation</li>
+                </ul>
+            </div>
+            
+            <!-- Contact Card -->
+            <div class="sidebar-card">
+                <h3>Questions?</h3>
+                <p style="color: #666; margin-bottom: 1rem;">Contact us for a free consultation to discuss your specific needs.</p>
+                <p style="color: #666;"><strong>Email:</strong><br>edmund@cloudandsecurelimited.com</p>
+            </div>
+        </aside>
+    </div>
+</div>
+
+<!-- Related Services -->
+{% if related_services %}
+<section class="container related-services">
+    <h2 class="section-title">Related Services</h2>
+    <div class="related-grid">
+        {% for related in related_services %}
+        <div class="card related-card">
+            {% if related.icon_class %}
+            <div style="font-size: 2.5rem; color: #0078D4;">
+                <i class="{{ related.icon_class }}"></i>
+            </div>
+            {% endif %}
+            <h3>{{ related.title }}</h3>
+            <p>{{ related.short_description|truncatewords:20 }}</p>
+            <a href="{% url 'website:service_detail' related.slug %}" class="btn">Learn More</a>
+        </div>
+        {% endfor %}
+    </div>
+</section>
+{% endif %}
+
+<!-- Final CTA -->
+<section class="container" style="margin-top: 4rem;">
+    <div style="background: linear-gradient(135deg, #0078D4 0%, #0053A0 100%); color: white; padding: 3rem 2rem; border-radius: 10px; text-align: center;">
+        <h2 style="font-size: 2rem; margin-bottom: 1rem;">Ready to Get Started with {{ service.title }}?</h2>
+        <p style="font-size: 1.1rem; margin-bottom: 2rem; max-width: 700px; margin-left: auto; margin-right: auto;">
+            Contact us today for a free consultation and let's discuss how we can help your business succeed.
+        </p>
+        <a href="{% url 'website:contact' %}" class="btn" style="background: white; color: #0078D4; font-weight: bold; font-size: 1.1rem; padding: 1rem 2rem;">Contact Us Now</a>
+    </div>
+</section>
+{% endblock %}
